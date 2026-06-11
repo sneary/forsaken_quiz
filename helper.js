@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   resetBtn.addEventListener('click', () => {
     state.stageIndex = 0;
+    resetDebuffSelections();
     renderStage();
   });
 
@@ -119,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderStage() {
     const stageName = STAGES[state.stageIndex];
     stageTitle.textContent = stageName;
-    resetDebuffSelections();
     hideAllStages();
     
     const svgId = svgMap[stageName];
