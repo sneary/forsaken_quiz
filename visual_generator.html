@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forsaken Visual Generator</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .map-container {
+      margin-bottom: 50px;
+      padding: 20px;
+      background: #252525;
+      border-radius: 8px;
+      width: fit-content;
+    }
+    .placement-svg {
+      background-color: #111;
+      border-radius: 8px;
+    }
+    .choice-circle {
+      display: none;
+    }
+    .choice-circle.highlight {
+      display: block;
+      fill: #00ff00;
+      stroke: #fff;
+      stroke-width: 2px;
+    }
+    .tower-visual {
+      fill: #2CFFC3;
+      fill-opacity: 0.15;
+      stroke: #2CFFC3;
+      stroke-width: 4;
+    }
+    .spot-label {
+      fill: white;
+      font-size: 10px;
+      font-family: monospace;
+      text-anchor: middle;
+      pointer-events: none;
+    }
+    h2 { margin-top: 0; }
+  </style>
+</head>
+<body>
+
+  <!-- MAP 1: ODD STAGES -->
+  <div id="map1_view" class="map-container">
+    <h2>Map 1: Odd Stages (1, 3, 5, 7)</h2>
+    <svg id="placementSvg1" class="placement-svg" width="375" height="189" viewBox="0 0 375 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle class="tower-visual" cx="74" cy="89" r="72" />
+      <circle class="tower-visual" cx="301" cy="89" r="72" />
+      
+      <!-- Highlighted Spots -->
+      <circle id="GroupA_Support_Stack" class="choice-circle highlight" cx="78" cy="79" r="9.5" />
+      <text class="spot-label" x="78" y="70">Inner: Stack</text>
+
+      <circle id="GroupA_Cone" class="choice-circle highlight" cx="51" cy="138" r="9.5" />
+      <text class="spot-label" x="51" y="155">Inner: Cone</text>
+
+      <circle id="GroupB_Tank" class="choice-circle highlight" cx="116" cy="10" r="9.5" />
+      <text class="spot-label" x="116" y="25">Outer: Tank</text>
+
+      <circle id="GroupB_Healer" class="choice-circle highlight" cx="31" cy="179" r="9.5" />
+      <text class="spot-label" x="40" y="170">Outer: Healer</text>
+
+      <circle id="GroupB_DPS" class="choice-circle highlight" cx="251" cy="15" r="9.5" />
+      <text class="spot-label" x="251" y="30">Outer: DPS</text>
+    </svg>
+  </div>
+
+  <!-- MAP 2: EVEN STAGES -->
+  <div id="map2_view" class="map-container">
+    <h2>Map 2: Even Stages (2, 4, 6, 8)</h2>
+    <svg id="placementSvg2" class="placement-svg" width="415" height="261" viewBox="0 0 415 261" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle class="tower-visual" cx="94" cy="187" r="72" />
+      <circle class="tower-visual" cx="321" cy="187" r="72" />
+
+      <!-- Highlighted Spots -->
+      <circle id="Stage2_GroupA_Support_Cone" class="choice-circle highlight" cx="113" cy="136" r="9.5" />
+      <text class="spot-label" x="113" y="125">Inner: Cone/Diff</text>
+
+      <circle id="Stage2_GroupA_DPS_Aoe" class="choice-circle highlight" cx="331" cy="251" r="9.5" />
+      <text class="spot-label" x="331" y="240">Inner: Flare/Diff</text>
+
+      <circle id="Stage2_GroupB_Tank" class="choice-circle highlight" cx="147" cy="10" r="9.5" />
+      <text class="spot-label" x="147" y="25">Outer: Tank</text>
+
+      <circle id="Stage2_GroupB_Healer" class="choice-circle highlight" cx="10" cy="164" r="9.5" />
+      <text class="spot-label" x="25" y="155">Outer: Healer</text>
+
+      <circle id="Stage2_GroupB_Melee" class="choice-circle highlight" cx="257" cy="10" r="9.5" />
+      <text class="spot-label" x="257" y="25">Outer: Melee</text>
+
+      <circle id="Stage2_GroupB_RangedDPS" class="choice-circle highlight" cx="405" cy="154" r="9.5" />
+      <text class="spot-label" x="385" y="145">Outer: Ranged</text>
+    </svg>
+  </div>
+
+</body>
+</html>

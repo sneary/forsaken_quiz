@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forsaken Helper</title>
+  <link rel="stylesheet" href="helper.css">
+  <style>
+    /* Additions for SVGs to scale correctly */
+    .placement-stage {
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto 20px;
+    }
+    .placement-svg {
+      width: 100%;
+      height: auto;
+      background-color: #111;
+      border-radius: 4px;
+    }
+    .highlight {
+      fill: #00ff00;
+      stroke: #fff;
+      stroke-width: 3px;
+      r: 15;
+      animation: pulse 1s infinite alternate;
+    }
+    @keyframes pulse {
+      from { r: 12; fill-opacity: 1; }
+      to { r: 18; fill-opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Forsaken Solver</h1>
+      <a href="index.html" class="back-link">&larr; Back to Quiz</a>
+    </header>
+
+    <!-- SINGLE COMBINED SCREEN -->
+    <div id="mainScreen">
+      <div class="controls">
+        <label>Your Role & Group:</label>
+        <div class="row" id="roleRow1">
+          <button class="toggle-btn role-btn" data-role="H1">H1</button>
+          <button class="toggle-btn role-btn" data-role="MT">MT</button>
+          <button class="toggle-btn role-btn" data-role="Melee1">M1</button>
+          <button class="toggle-btn role-btn" data-role="Ranged1">R1</button>
+        </div>
+        <div class="row" id="roleRow2" style="margin-bottom: 15px;">
+          <button class="toggle-btn role-btn" data-role="H2">H2</button>
+          <button class="toggle-btn role-btn" data-role="OT">OT</button>
+          <button class="toggle-btn role-btn" data-role="Melee2">M2</button>
+          <button class="toggle-btn role-btn" data-role="Ranged2">R2</button>
+        </div>
+
+        <div class="row" id="groupRow">
+          <button class="toggle-btn group-btn" data-group="GroupA" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <span>Group A</span>
+            <span style="font-size: 0.75rem; font-weight: normal; margin-top: 4px; opacity: 0.8;">Diff mech from partner at start</span>
+          </button>
+          <button class="toggle-btn group-btn" data-group="GroupB" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <span>Group B</span>
+            <span style="font-size: 0.75rem; font-weight: normal; margin-top: 4px; opacity: 0.8;">Same mech as partner at start</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="stage-header" style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px;">
+        <h2 id="stageTitle">Stage 1</h2>
+        <button id="resetBtn" class="back-link">Reset Pull</button>
+      </div>
+
+      <div id="debuffControls" class="controls">
+        <label>My Debuff:</label>
+        <div class="row" id="myDebuffRow">
+          <button class="toggle-btn debuff-btn icon-btn" data-debuff="stack">
+            <div class="quiz-debuff-icon"><img id="stack-img" alt="Stack" /></div>
+            <span>Stack</span>
+          </button>
+          <button class="toggle-btn debuff-btn icon-btn" data-debuff="aoe">
+            <div class="debuff-aoe quiz-debuff-icon"></div>
+            <span>Spread</span>
+          </button>
+          <button class="toggle-btn debuff-btn icon-btn" data-debuff="cone">
+            <div class="debuff-cone quiz-debuff-icon"></div>
+            <span>Cone</span>
+          </button>
+        </div>
+
+        <label>Partner's Debuff:</label>
+        <div class="row" id="partnerDebuffRow">
+          <button class="toggle-btn partner-btn icon-btn" data-partner="Same">
+            <svg class="btn-icon" viewBox="0 0 34 34" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="13" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            <span>Same</span>
+          </button>
+          <button class="toggle-btn partner-btn icon-btn" data-partner="Different">
+            <svg class="btn-icon" viewBox="0 0 34 34" width="32" height="32"><rect x="3" y="3" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><rect x="13" y="13" width="18" height="18" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="22" y1="2" x2="32" y2="12" stroke="#ff3333" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="2" x2="22" y2="12" stroke="#ff3333" stroke-width="2.5" stroke-linecap="round"/></svg>
+            <span>Diff</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="display">
+        <button id="nextStageBtn" class="action-btn disabled" style="margin-bottom: 20px;">Next Towers &rarr;</button>
+
+        <div class="svg-container" id="svgContainer">
+          <!-- SVGs will go here -->
+          <section id="placementStage" class="placement-stage hidden" aria-label="Stage 1">
+            <svg id="placementSvg1" class="placement-svg" width="375" height="189" viewBox="0 0 375 189" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle id="Tower1" class="tower-visual" cx="74" cy="89" r="72" fill="#2CFFC3" fill-opacity="0.15" stroke="#2CFFC3" stroke-width="4"/>
+              <circle id="Tower1_2" class="tower-visual" cx="301" cy="89" r="72" fill="#2CFFC3" fill-opacity="0.15" stroke="#2CFFC3" stroke-width="4"/>
+              <circle id="GroupA_Cone" class="choice-circle" cx="51" cy="138" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="GroupB_Healer" class="choice-circle" cx="31" cy="179" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="GroupA_Support_Stack" class="choice-circle" cx="78" cy="79" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="GroupB_Tank" class="choice-circle" cx="116" cy="10" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="GroupB_DPS" class="choice-circle" cx="251" cy="15" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="GroupA_DPS_Stack" class="choice-circle" cx="271" cy="44" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="GroupA_Aoe" class="choice-circle" cx="301" cy="143" r="9.5" fill="#FFBB00" stroke="black"/>
+            </svg>
+          </section>
+
+          <section id="placementStage2" class="placement-stage hidden" aria-label="Stage 2">
+            <svg id="placementSvg2" class="placement-svg" width="415" height="261" viewBox="0 0 415 261" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle id="Stage2_Tower1" class="tower-visual" cx="94" cy="187" r="72" fill="#2CFFC3" fill-opacity="0.15" stroke="#2CFFC3" stroke-width="4"/>
+              <circle id="Stage2_Tower1_2" class="tower-visual" cx="321" cy="187" r="72" fill="#2CFFC3" fill-opacity="0.15" stroke="#2CFFC3" stroke-width="4"/>
+              <circle id="Stage2_GroupA_Support_Cone" class="choice-circle" cx="113" cy="136" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupB_Tank" class="choice-circle" cx="147" cy="10" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupB_Melee" class="choice-circle" cx="257" cy="10" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupA_DPS_Cone" class="choice-circle" cx="295" cy="136" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupA_DPS_Aoe" class="choice-circle" cx="331" cy="251" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupB_RangedDPS" class="choice-circle" cx="405" cy="154" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupB_Healer" class="choice-circle" cx="10" cy="164" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage2_GroupA_Support_AOE" class="choice-circle" cx="75" cy="251" r="9.5" fill="#FFBB00" stroke="black"/>
+            </svg>
+          </section>
+
+          <section id="placementStage3" class="placement-stage hidden" aria-label="Choose Future or Past">
+            <svg id="placementSvg3" class="placement-svg" width="375" height="267" viewBox="0 0 375 267" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle id="Stage3_Tower1" class="tower-visual" cx="74" cy="193" r="72" fill="#2CFFC3" fill-opacity="0.15" stroke="#2CFFC3" stroke-width="4"/>
+              <circle id="Stage3_Tower1_2" class="tower-visual" cx="301" cy="193" r="72" fill="#2CFFC3" fill-opacity="0.15" stroke="#2CFFC3" stroke-width="4"/>
+              <circle id="Stage3_Past" class="choice-circle" cx="188" cy="225" r="9.5" fill="#FFBB00" stroke="black"/>
+              <circle id="Stage3_Future" class="choice-circle" cx="188" cy="10" r="9.5" fill="#FFBB00" stroke="black"/>
+            </svg>
+          </section>
+
+        </div>
+        
+        <div id="instructionText" style="margin-top: 15px;">Select both debuffs to see position.</div>
+      </div>
+    </div>
+  </div>
+  <script src="stack_marker.js"></script>
+  <script src="helper.js"></script>
+</body>
+</html>
