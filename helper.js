@@ -206,10 +206,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return null;
   }
 
-  function getOddInnerId(debuff, role) {
+  function getOddInnerId(role, debuff, partnerRole, partnerDebuff) {
     if (debuff === 'cone') return 'GroupA_Cone';
     if (debuff === 'aoe') return 'GroupA_Aoe';
     if (debuff === 'stack') {
+      const sameDebuff = partnerDebuff && debuff === partnerDebuff;
+      if (sameDebuff && dpsRoles.includes(role) && dpsRoles.includes(partnerRole)) {
+        return isRangedDps(role) ? 'GroupA_DPS_Stack' : 'GroupA_Support_Stack';
+      }
+      if (sameDebuff && supportRoles.includes(role) && supportRoles.includes(partnerRole)) {
+        return healerRoles.includes(role) ? 'GroupA_Support_Stack' : 'GroupA_DPS_Stack';
+      }
       return supportRoles.includes(role) ? 'GroupA_Support_Stack' : 'GroupA_DPS_Stack';
     }
     return null;
@@ -258,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Core rule for Odd vs Even Maps
     if (isOdd) {
-      if (isInner) return getOddInnerId(debuff, role);
+      if (isInner) return getOddInnerId(role, debuff, partnerRole, partnerDebuff);
       else return getOddOuterId(role);
     } else {
       if (isInner) return getEvenInnerId(role, debuff, partnerRole, partnerDebuff);
